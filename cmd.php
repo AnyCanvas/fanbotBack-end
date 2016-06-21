@@ -13,7 +13,9 @@ $webSock->listen(8080, '0.0.0.0'); // Binding to 0.0.0.0 means remotes can conne
 $server = IoServer::factory(
     new HttpServer(
         new WsServer(
+	        new WampServer(
             new Chat()
+            )
         )
     ),
     $webSock
