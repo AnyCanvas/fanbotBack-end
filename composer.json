@@ -1,5 +1,10 @@
 {
-    "require": {
+{
+    "autoload": {
+        "psr-0": {
+            "MyChat": "src"
+        }
+    },    "require": {
         "cboden/ratchet": "0.3.*"
     }
 }
