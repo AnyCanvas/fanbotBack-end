@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
-use ChatApp\Chat;
+use class\ChatApp\;
 
 $server = IoServer::factory(
     new HttpServer(
