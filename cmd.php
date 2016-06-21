@@ -12,7 +12,7 @@ use ChatApp\Chat;
                 new Chat()
             )
         ),
-        8080
+        3030
     );
 
     $server->run();
