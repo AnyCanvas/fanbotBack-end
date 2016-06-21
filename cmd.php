@@ -1,8 +1,8 @@
 <?php
 use Ratchet\Server\IoServer;
-use MyApp\Chat;
+use ChatApp\Chat;
 
-    require dirname(__DIR__) . '/html/vendor/autoload.php';
+    require dirname(__DIR__) . '/vendor/autoload.php';
 
     $server = IoServer::factory(
         new Chat(),
