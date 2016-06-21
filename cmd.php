@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 use Ratchet\Server\IoServer;
-use MyApp\Chat;
+use ChatApp\Chat;
 
     $server = IoServer::factory(
         new Chat(),
