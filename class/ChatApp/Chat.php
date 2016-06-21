@@ -42,4 +42,26 @@ class Chat implements MessageComponentInterface {
 
         $conn->close();
     }
+	public function send($client, $msg){
+	        $this->say("> ".$msg);
+	        $messageRequest = json_decode($msg,true);
+	
+	            // $action=$messageRequest[0];
+	            $action = 'responseMessage';
+	            $param  = $messageRequest[1]['data'];
+	        if( method_exists('socketWebSocketTrigger',$action) ){
+	                                $response = socketWebSocketTrigger::$action($param);
+	                            }
+	            $msg = json_encode(
+	                array(                      
+	                'message',
+	                    array('data' => $response)
+	                )
+	            );
+	
+	            $msg = $this->wrap($msg);
+	
+	        socket_write($client, $msg, strlen($msg));
+	    }
+
 }
