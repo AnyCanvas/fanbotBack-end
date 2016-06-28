@@ -15,9 +15,11 @@ class Chat implements MessageComponentInterface {
         $this->clients->attach($conn);
 
         echo "New connection! ({$conn->resourceId})\n";
+        
+        $connInt = $conn->resourceId;
 
         foreach ($this->clients as $client) {
-            if ($conn->resourceId == $client) {
+            if ( $connInt == $client) {
                 // The sender is not the receiver, send to each client connected
                 $client->send($msg);
             }
