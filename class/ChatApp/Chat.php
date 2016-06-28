@@ -2,7 +2,7 @@
 namespace ChatApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
-$playing = 0;
+
 class Chat implements MessageComponentInterface {
     protected $clients;
 
@@ -14,6 +14,10 @@ class Chat implements MessageComponentInterface {
         // Store the new connection to send messages to later
         $this->clients->attach($conn);
         echo "New connection! ({$conn->resourceId})\n";
+ 
+	 	if ( !isset($GLOBALS['playing']) ){					
+			$GLOBALS['playing'] = 1;		
+		}
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
