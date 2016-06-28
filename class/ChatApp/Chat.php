@@ -52,8 +52,9 @@ class Chat implements MessageComponentInterface {
 		                $client->send($msg);
 		            }
 
-					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
 		        }		
+
+				file_get_contents('http://soyfanbot.com/remote.php?name=futy');
 				
 			}else {
 		        foreach ($this->clients as $client) {
