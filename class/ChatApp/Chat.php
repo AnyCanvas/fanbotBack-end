@@ -15,6 +15,13 @@ class Chat implements MessageComponentInterface {
         $this->clients->attach($conn);
 
         echo "New connection! ({$conn->resourceId})\n";
+
+        foreach ($this->clients as $client) {
+            if ($conn->resourceId == $client) {
+                // The sender is not the receiver, send to each client connected
+                $client->send($msg);
+            }
+        }
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
@@ -42,6 +49,8 @@ class Chat implements MessageComponentInterface {
 
         $conn->close();
     }
+    
+
 	public function send($client, $msg){
 	        $this->say("> ".$msg);
 	        $messageRequest = json_decode($msg,true);
