@@ -35,7 +35,19 @@ class Chat implements MessageComponentInterface {
 		                $client->send($msg);
 		            }
 		        }		
-			} else {
+			} else if($message['type'] == 'friendChatId'){
+		        foreach ($this->clients as $client) {
+		            if ($from == $client) {
+		                // The sender is not the receiver, send to each client connected
+			            $msg = json_encode(
+			                array('p1Id' => $from->resourceId, 'p2Id' => $message['text'])
+			            );
+	
+		                $client->send($msg);
+		            }
+		        }		
+				
+			}else {
 		        foreach ($this->clients as $client) {
 		            if ($from !== $client) {
 		                // The sender is not the receiver, send to each client connected
