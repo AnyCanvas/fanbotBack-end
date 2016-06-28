@@ -29,7 +29,7 @@
         $('#main-container').removeClass('hidden');
 
         var msg = {
-            'user': user,
+            'type': user,
             'text': user + ' entered the room',
             'time': moment().format('hh:mm a')
         };
@@ -44,7 +44,7 @@
     $('#send-msg').click(function(){
         var text = $('#msg').val();
         var msg = {
-            'user': user,
+            'type': user,
             'text': text,
             'time': moment().format('hh:mm a')
         };
@@ -58,7 +58,7 @@
     $('#leave-room').click(function(){
 
         var msg = {
-            'user': user,
+            'type': user,
             'text': user + ' has left the room',
             'time': moment().format('hh:mm a')
         };
