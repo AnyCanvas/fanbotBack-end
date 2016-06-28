@@ -16,7 +16,7 @@ class Chat implements MessageComponentInterface {
         echo "New connection! ({$conn->resourceId})\n";
  
 	 	if ( !isset($GLOBALS['playing']) ){					
-			$GLOBALS['playing'] = 1;		
+			$GLOBALS['playing'] = 0;		
 		}
     }
 
