@@ -34,16 +34,16 @@ class Chat implements MessageComponentInterface {
 	
 		                $client->send($msg);
 		            }
+		        }		
+			} else {
+		        foreach ($this->clients as $client) {
+		            if ($from !== $client) {
+		                // The sender is not the receiver, send to each client connected
+		                $client->send($msg);
+		            }
 		        }
-		    }			
-		} else {
-	        foreach ($this->clients as $client) {
-	            if ($from !== $client) {
-	                // The sender is not the receiver, send to each client connected
-	                $client->send($msg);
-	            }
-	        }
-	    }
+		    }
+		}
     }
 
     public function onClose(ConnectionInterface $conn) {
