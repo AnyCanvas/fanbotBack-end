@@ -2,7 +2,7 @@
 namespace ChatApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
-
+$playing = 0;
 class Chat implements MessageComponentInterface {
     protected $clients;
 
@@ -35,26 +35,31 @@ class Chat implements MessageComponentInterface {
 		            }
 		        }		
 			} else if($message['type'] == 'friendChatId'){
-		        foreach ($this->clients as $client) {
-		            if ($from == $client) {
-		                // The sender is not the receiver, send to each client connected
-			            $msg = json_encode(
-			                array('type' => 'players', 'p1Id' => $from->resourceId, 'p2Id' => $message['text'])
-			            );
-		                $client->send($msg);
-		            }
 
-		            if ($message['text'] == $client->resourceId) {
-		                // The sender is not the receiver, send to each client connected
-			            $msg = json_encode(
-			                array('type' => 'players', 'p1Id' => $from->resourceId, 'p2Id' => $message['text'])
-			            );
-		                $client->send($msg);
-		            }
-
-		        }		
-
-				file_get_contents('http://soyfanbot.com/remote.php?name=futy');
+				if($GLOBALS['playing'] == 0){
+					
+					$GLOBALS['playing'] = 1;
+			        foreach ($this->clients as $client) {
+			            if ($from == $client) {
+			                // The sender is not the receiver, send to each client connected
+				            $msg = json_encode(
+				                array('type' => 'players', 'p1Id' => $from->resourceId, 'p2Id' => $message['text'])
+				            );
+			                $client->send($msg);
+			            }
+	
+			            if ($message['text'] == $client->resourceId) {
+			                // The sender is not the receiver, send to each client connected
+				            $msg = json_encode(
+				                array('type' => 'players', 'p1Id' => $from->resourceId, 'p2Id' => $message['text'])
+				            );
+			                $client->send($msg);
+			            }
+	
+			        }		
+	
+					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
+				}
 				
 			}else {
 		        foreach ($this->clients as $client) {
