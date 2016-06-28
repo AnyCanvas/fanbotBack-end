@@ -22,17 +22,20 @@ class Chat implements MessageComponentInterface {
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
 
 		$message = json_decode($msg, true);
-		if($message['type'] == 'strChat'){
-	        foreach ($this->clients as $client) {
-	            if ($from == $client) {
-	                // The sender is not the receiver, send to each client connected
-		            $msg = json_encode(
-		                array('chatId' => $from->resourceId)
-		            );
 
-	                $client->send($msg);
-	            }
-	        }			
+		if( isset($message['type']) ){
+			if($message['type'] == 'strChat'){
+		        foreach ($this->clients as $client) {
+		            if ($from == $client) {
+		                // The sender is not the receiver, send to each client connected
+			            $msg = json_encode(
+			                array('chatId' => $from->resourceId)
+			            );
+	
+		                $client->send($msg);
+		            }
+		        }
+		    }			
 		} else {
 	        foreach ($this->clients as $client) {
 	            if ($from !== $client) {
