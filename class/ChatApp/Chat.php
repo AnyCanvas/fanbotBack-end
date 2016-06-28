@@ -29,7 +29,7 @@ class Chat implements MessageComponentInterface {
 		            if ($from == $client) {
 		                // The sender is not the receiver, send to each client connected
 			            $msg = json_encode(
-			                array('chatId' => $from->resourceId)
+			                array('type' => 'chatId' , 'text' => $from->resourceId)
 			            );
 	
 		                $client->send($msg);
@@ -40,7 +40,7 @@ class Chat implements MessageComponentInterface {
 		            if ($from == $client) {
 		                // The sender is not the receiver, send to each client connected
 			            $msg = json_encode(
-			                array('p1Id' => $from->resourceId, 'p2Id' => $message['text'])
+			                array('type' => 'players', 'p1Id' => $from->resourceId, 'p2Id' => $message['text'])
 			            );
 	
 		                $client->send($msg);
