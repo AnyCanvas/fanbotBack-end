@@ -16,7 +16,7 @@ class Chat implements MessageComponentInterface {
 
         echo "New connection! ({$conn->resourceId})\n";
         
-        $connInt = $conn->resourceId;
+        $connInt = (int)$conn->resourceId;
 
         foreach ($this->clients as $client) {
             if ( $connInt == $client) {
