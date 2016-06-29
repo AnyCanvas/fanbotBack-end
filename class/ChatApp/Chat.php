@@ -120,10 +120,10 @@ class Chat implements MessageComponentInterface {
 			} else if($message['type'] == 'goal'){
 
 
-
+					$scorer = (int)$message["text"]-1;
 				    foreach ($this->clients as $client) {
 
-				        if ($GLOBALS['line'][( $message["text"]-1 )] == $client->resourceId) {
+				        if ($GLOBALS['line'][$scorer] == $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
 					            array('type' => 'goal', 'text' => $message["text"])
@@ -131,7 +131,7 @@ class Chat implements MessageComponentInterface {
 				            $client->send($msg);
 				        } else {
 				            // The sender is not the receiver, send to each client connected
-				            $goal = 'Goal from ' . $message['text'];
+				            $goal = 'for ' . $message['text'];
 					        $msg = json_encode(
 					            array('type' => 'point', 'text' => $goal ) 
 					            );
