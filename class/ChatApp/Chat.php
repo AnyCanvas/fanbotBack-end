@@ -89,6 +89,7 @@ class Chat implements MessageComponentInterface {
 					        }
 			
 					    }
+					  file_get_contents("http://soyfanbot.com/remote.php?name=futy");
 					} else if ($GLOBALS['playing'] == 1){
 						array_push($GLOBALS['line'], $from->resourceId, $message['text']);
 					    foreach ($this->clients as $client) {
@@ -203,7 +204,9 @@ class Chat implements MessageComponentInterface {
 						            $client->send($msg);
 						        }
 				
-						    } 
+						    }
+							file_get_contents("http://soyfanbot.com/remote.php?name=futy");
+ 
 						} else {
 							$GLOBALS['playing'] = 1;							    
 						}
