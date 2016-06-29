@@ -138,8 +138,46 @@ class Chat implements MessageComponentInterface {
 					            );
 				            $client->send($msg);
 				        }
-		
-				    }			
+				    }	
+				    
+					if($GLOBALS['score1'] + $GLOBALS['score2'] == 5){
+
+						if ($GLOBALS['score1'] > $GLOBALS['score2']){
+							$winner = 0;
+							$losser = 1; 
+						} else {
+							$winner = 0; 							
+							$losser = 1; 
+						}
+						
+						$GLOBALS['score1'] = $GLOBALS['score2'] = 0; 
+
+					    foreach ($this->clients as $client) {
+
+					        if ($GLOBALS['line'][$winner] == $client->resourceId) {
+					            // The sender is not the receiver, send to each client connected
+						        $msg = json_encode(
+						            array('type' => 'final', 'text' => 'win')
+						        );
+					            $client->send($msg);
+					        } else if ( $GLOBALS['line'][$losser] == $client->resourceId ) {
+					            // The sender is not the receiver, send to each client connected
+						        $msg = json_encode(
+						            array('type' => 'Winner', 'text' => 'lose')
+						        );
+					            $client->send($msg);
+						        
+					        }else {
+					            // The sender is not the receiver, send to each client connected
+					            $goal = 'Goal from ' . $message['text'];
+						        $msg = json_encode(
+						            array('type' => 'point', 'text' => $goal ) 
+						            );
+					            $client->send($msg);
+					        }
+					    }	
+						
+					}		
 			}  else {
 		        foreach ($this->clients as $client) {
 		            if ($from !== $client) {
