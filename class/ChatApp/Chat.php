@@ -64,13 +64,18 @@ class Chat implements MessageComponentInterface {
 					            array('type' => 'play', 'text' => 'play')
 					        );
 				            $client->send($msg);
-				        }
-		
-				        if ($message['text'] == $client->resourceId) {
+				        } else if ($message['text'] == $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
 					            array('type' => 'play', 'text' => 'play')
 					        );
+				            $client->send($msg);
+				        } else {
+				            // The sender is not the receiver, send to each client connected
+				            $vs = $from->resourceId . ' vs ' . $message['text'];
+					        $msg = json_encode(
+					            array('type' => 'onMatch', 'text' => $vs ) 
+					            );
 				            $client->send($msg);
 				        }
 		
