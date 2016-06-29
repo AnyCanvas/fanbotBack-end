@@ -42,7 +42,7 @@ class Chat implements MessageComponentInterface {
 		                $client->send($msg);
 		            }
 		        }		
-			} else if( $message['type'] == 'friendChatId' && $from->resourceId !== $message['text']){
+			} else if( $message['type'] == 'friendChatId' && ($from->resourceId !== (int) $message['text'] ) ){
 
 				$c = 0;
 
