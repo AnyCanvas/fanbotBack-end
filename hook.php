@@ -5,7 +5,7 @@ $data = json_decode($body,true);
 
 
 //if ($charge->type == 'charge.paid'){
-	if( !(isset($data['data']) ) ){
+//	if( !(isset($data['data']) ) ){
 
 		$host = 'localhost';  //where is the websocket server
 		$port = 8080;
@@ -28,7 +28,7 @@ $data = json_decode($body,true);
 		fwrite($sock, "\x00$data\xff" ) or die('error:'.$errno.':'.$errstr);
 		$wsdata = fread($sock, 2000);  //receives the data included in the websocket package "\x00DATA\xff"
 		fclose($sock);
-	}
+//	}
 //}
 
 ?>
