@@ -70,13 +70,13 @@ class Chat implements MessageComponentInterface {
 					        if ($from == $client) {
 					            // The sender is not the receiver, send to each client connected
 						        $msg = json_encode(
-						            array('type' => 'play', 'text' => 'play')
+						            array('type' => 'white', 'text' => 'play')
 						        );
 					            $client->send($msg);
 					        } else if ($message['text'] == $client->resourceId) {
 					            // The sender is not the receiver, send to each client connected
 						        $msg = json_encode(
-						            array('type' => 'play', 'text' => 'play')
+						            array('type' => 'blue', 'text' => 'play')
 						        );
 					            $client->send($msg);
 					        } else {
@@ -95,12 +95,12 @@ class Chat implements MessageComponentInterface {
 					        if ($from == $client) {
 					            // The sender is not the receiver, send to each client connected
 						        $msg = json_encode(
-						            array('type' => 'play', 'text' => 'wait')					        );
+						            array('type' => 'team', 'text' => 'red')					        );
 					            $client->send($msg);
 					        } else if ($message['text'] == $client->resourceId) {
 					            // The sender is not the receiver, send to each client connected
 						        $msg = json_encode(
-						            array('type' => 'play', 'text' => 'wait')
+						            array('type' => 'team', 'text' => 'white')
 						        );
 					            $client->send($msg);
 					        } else {
@@ -184,16 +184,16 @@ class Chat implements MessageComponentInterface {
 					    
 					    if(isset( $GLOBALS['line'][0] ) && isset( $GLOBALS['line'][1] ) ){
 						    foreach ($this->clients as $client) {
-						        if ($GLOBALS['line'][1] == $client->resourceId) {
+						        if ($GLOBALS['line'][0] == $client->resourceId) {
 						            // The sender is not the receiver, send to each client connected
 							        $msg = json_encode(
-							            array('type' => 'play', 'text' => 'play')
+							            array('type' => 'play', 'white' => 'play')
 							        );
 						            $client->send($msg);
 						        } else if ($GLOBALS['line'][1] == $client->resourceId) {
 						            // The sender is not the receiver, send to each client connected
 							        $msg = json_encode(
-							            array('type' => 'play', 'text' => 'play')
+							            array('type' => 'play', 'red' => 'play')
 							        );
 						            $client->send($msg);
 						        } else {
