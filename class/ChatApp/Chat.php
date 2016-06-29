@@ -70,13 +70,13 @@ class Chat implements MessageComponentInterface {
 					        if ($from == $client) {
 					            // The sender is not the receiver, send to each client connected
 						        $msg = json_encode(
-						            array('type' => 'white', 'text' => 'play')
+						            array('type' => 'play', 'text' => 'white')
 						        );
 					            $client->send($msg);
 					        } else if ($message['text'] == $client->resourceId) {
 					            // The sender is not the receiver, send to each client connected
 						        $msg = json_encode(
-						            array('type' => 'blue', 'text' => 'play')
+						            array('type' => 'play', 'text' => 'red')
 						        );
 					            $client->send($msg);
 					        } else {
@@ -187,13 +187,13 @@ class Chat implements MessageComponentInterface {
 						        if ($GLOBALS['line'][0] == $client->resourceId) {
 						            // The sender is not the receiver, send to each client connected
 							        $msg = json_encode(
-							            array('type' => 'play', 'white' => 'play')
+							            array('type' => 'play', 'type' => 'white')
 							        );
 						            $client->send($msg);
 						        } else if ($GLOBALS['line'][1] == $client->resourceId) {
 						            // The sender is not the receiver, send to each client connected
 							        $msg = json_encode(
-							            array('type' => 'play', 'red' => 'play')
+							            array('type' => 'play', 'red' => 'red')
 							        );
 						            $client->send($msg);
 						        } else {
