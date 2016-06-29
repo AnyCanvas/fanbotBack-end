@@ -121,6 +121,7 @@ class Chat implements MessageComponentInterface {
 
 
 					$scorer = (int)$message["text"]-1;
+					$GLOBALS['score'][$scorer]++;
 				    foreach ($this->clients as $client) {
 
 				        if ($GLOBALS['line'][$scorer] == $client->resourceId) {
