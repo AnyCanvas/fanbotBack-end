@@ -181,29 +181,34 @@ class Chat implements MessageComponentInterface {
 						array_shift($GLOBALS['line']);
 						array_shift($GLOBALS['line']);
 
-					    foreach ($this->clients as $client) {
-					        if ($GLOBALS['line'][1] == $client->resourceId) {
-					            // The sender is not the receiver, send to each client connected
-						        $msg = json_encode(
-						            array('type' => 'play', 'text' => 'play')
-						        );
-					            $client->send($msg);
-					        } else if ($GLOBALS['line'][1] == $client->resourceId) {
-					            // The sender is not the receiver, send to each client connected
-						        $msg = json_encode(
-						            array('type' => 'play', 'text' => 'play')
-						        );
-					            $client->send($msg);
-					        } else {
-					            // The sender is not the receiver, send to each client connected
-					            $vs = $GLOBALS['line'][0] . ' vs ' . $GLOBALS['line'][1];
-						        $msg = json_encode(
-						            array('type' => 'onMatch', 'text' => $vs ) 
-						            );
-					            $client->send($msg);
-					        }
-			
-					    }
+					    
+					    if(isset( $GLOBALS['line'][0] ) && isset( $GLOBALS['line'][1] ) ){
+						    foreach ($this->clients as $client) {
+						        if ($GLOBALS['line'][1] == $client->resourceId) {
+						            // The sender is not the receiver, send to each client connected
+							        $msg = json_encode(
+							            array('type' => 'play', 'text' => 'play')
+							        );
+						            $client->send($msg);
+						        } else if ($GLOBALS['line'][1] == $client->resourceId) {
+						            // The sender is not the receiver, send to each client connected
+							        $msg = json_encode(
+							            array('type' => 'play', 'text' => 'play')
+							        );
+						            $client->send($msg);
+						        } else {
+						            // The sender is not the receiver, send to each client connected
+						            $vs = $GLOBALS['line'][0] . ' vs ' . $GLOBALS['line'][1];
+							        $msg = json_encode(
+							            array('type' => 'onMatch', 'text' => $vs ) 
+							            );
+						            $client->send($msg);
+						        }
+				
+						    } 
+						} else {
+							$GLOBALS['playing'] = 1;							    
+						}
 					}		
 
 
