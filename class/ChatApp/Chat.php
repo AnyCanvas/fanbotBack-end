@@ -90,6 +90,7 @@ class Chat implements MessageComponentInterface {
 			
 					    }
 					} else if ($GLOBALS['playing'] == 1){
+						array_push($GLOBALS['line'], $from->resourceId, $message['text']);
 					    foreach ($this->clients as $client) {
 					        if ($from == $client) {
 					            // The sender is not the receiver, send to each client connected
@@ -178,6 +179,30 @@ class Chat implements MessageComponentInterface {
 						
 						array_shift($GLOBALS['line']);
 						array_shift($GLOBALS['line']);
+
+					    foreach ($this->clients as $client) {
+					        if ($GLOBALS['line'] == $client->resourceId) {
+					            // The sender is not the receiver, send to each client connected
+						        $msg = json_encode(
+						            array('type' => 'play', 'text' => 'play')
+						        );
+					            $client->send($msg);
+					        } else if ($GLOBALS['line'][1] == $client->resourceId) {
+					            // The sender is not the receiver, send to each client connected
+						        $msg = json_encode(
+						            array('type' => 'play', 'text' => 'play')
+						        );
+					            $client->send($msg);
+					        } else {
+					            // The sender is not the receiver, send to each client connected
+					            $vs = $from->resourceId . ' vs ' . $message['text'];
+						        $msg = json_encode(
+						            array('type' => 'onMatch', 'text' => $vs ) 
+						            );
+					            $client->send($msg);
+					        }
+			
+					    }
 					}		
 
 
