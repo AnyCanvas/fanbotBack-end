@@ -95,7 +95,7 @@ class Chat implements MessageComponentInterface {
 				        if ($from !== $client && $message['text'] !== $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
-					            array('type' => 'onWait', 'text' => ( $from->resourceId + ' vs ' + $message['text'] ) ) );
+					            array('type' => 'onWait', 'text' => ( $from->resourceId . ' vs ' . $message['text'] ) ) );
 				            $client->send($msg);
 				        }
 		
