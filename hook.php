@@ -10,9 +10,7 @@ $data = json_decode($body,true);
 		$host = '127.0.0.1';  //where is the websocket server
 		$port = 8080;
 		$local = "http://127.0.0.1/";  //url where this script run
-		$msg = json_encode(
-			   array('type' => 'score' , 'text' => $data['data'])
-			);
+		$msg = json_encode($data);
 		
 		$head = "GET / HTTP/1.1"."\r\n".
 		            "Upgrade: WebSocket"."\r\n".
