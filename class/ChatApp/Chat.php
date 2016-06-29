@@ -22,6 +22,14 @@ class Chat implements MessageComponentInterface {
 	 	if ( !isset($GLOBALS['line']) ){					
 			$GLOBALS['line'] = array();		
 		}
+
+	 	if ( !isset($GLOBALS['score1']) ){					
+			$GLOBALS['line'] = 0;		
+		}
+
+	 	if ( !isset($GLOBALS['score2']) ){					
+			$GLOBALS['line'] = 0;		
+		}
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
@@ -110,6 +118,10 @@ class Chat implements MessageComponentInterface {
 				}
 				
 			} else if($message['type'] == 'goal'){
+
+
+					$GLOBALS[ ('score'. $message["text"]) ]++;
+
 				    foreach ($this->clients as $client) {
 
 				        if ($GLOBALS['line'][$message["text"]-1] == $client->resourceId) {
