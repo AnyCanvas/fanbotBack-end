@@ -24,11 +24,11 @@ class Chat implements MessageComponentInterface {
 		}
 
 	 	if ( !isset($GLOBALS['score1']) ){					
-			$GLOBALS['score1'] = 0;		
+			$GLOBALS['score'][0] = 0;		
 		}
 
 	 	if ( !isset($GLOBALS['score2']) ){					
-			$GLOBALS['score2'] = 0;		
+			$GLOBALS['score'][1] = 0;		
 		}
     }
 
@@ -126,7 +126,7 @@ class Chat implements MessageComponentInterface {
 				        if ($GLOBALS['line'][$scorer] == $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
-					            array('type' => 'goal', 'text' => $message["text"])
+					            array('type' => 'goal', 'text' => $GLOBALS['score'][$scorer])
 					        );
 				            $client->send($msg);
 				        } else {
@@ -138,9 +138,9 @@ class Chat implements MessageComponentInterface {
 				            $client->send($msg);
 				        }
 		
-					if($GLOBALS['score1'] + $GLOBALS['score2'] >= 5){
+					if( ($GLOBALS['score'][0] + $GLOBALS['score'][1]) >= 5){
 
-						if ($GLOBALS['score1'] > $GLOBALS['score2']){
+						if ($GLOBALS['score'][0] > $GLOBALS['score'][1]){
 							$winner = 0;
 							$losser = 1; 
 						} else {
@@ -148,7 +148,7 @@ class Chat implements MessageComponentInterface {
 							$losser = 1; 
 						}
 						
-						$GLOBALS['score1'] = $GLOBALS['score2'] = 0; 
+						$GLOBALS['score'][0] = $GLOBALS['score'][1] = 0; 
 
 					    foreach ($this->clients as $client) {
 
@@ -161,15 +161,15 @@ class Chat implements MessageComponentInterface {
 					        } else if ( $GLOBALS['line'][$losser] == $client->resourceId ) {
 					            // The sender is not the receiver, send to each client connected
 						        $msg = json_encode(
-						            array('type' => 'Winner', 'text' => 'lose')
+						            array('type' => 'final', 'text' => 'lose')
 						        );
 					            $client->send($msg);
 						        
 					        }else {
 					            // The sender is not the receiver, send to each client connected
-					            $goal = 'Goal from ' . $message['text'];
+					            $goal = 'Winner ' . ($winner+1);
 						        $msg = json_encode(
-						            array('type' => 'point', 'text' => $goal ) 
+						            array('type' => 'final', 'text' => $goal ) 
 						            );
 					            $client->send($msg);
 					        }
