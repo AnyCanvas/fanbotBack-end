@@ -208,7 +208,7 @@ class Chat implements MessageComponentInterface {
 							file_get_contents("http://soyfanbot.com/remote.php?name=futy");
  
 						} else {
-							$GLOBALS['playing'] = 1;							    
+							$GLOBALS['playing'] = 0;							    
 						}
 					}		
 
