@@ -6,5 +6,5 @@ use WebSocket\Client;
 $client = new Client("ws://104.236.71.12:8080");
 $client->send("Hello WebSocket.org!");
 
-echo $client->receive(); // Will output 'Hello WebSocket.org!'
+// echo $client->receive(); // Will output 'Hello WebSocket.org!'
 ?>
