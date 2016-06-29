@@ -47,7 +47,7 @@ class Chat implements MessageComponentInterface {
 				$c = 0;
 
 			    foreach ($this->clients as $client) {
-			        if ($message['text'] == $client->resourceId && $client->resourceId !== $message['text'] ) {
+			        if ($message['text'] == $client->resourceId && $from->resourceId == $message['text'] ) {
 						$c++;
 			        }
 				}
@@ -122,7 +122,7 @@ class Chat implements MessageComponentInterface {
 				            // The sender is not the receiver, send to each client connected
 				            $goal = 'Goal from ' . $message['text'];
 					        $msg = json_encode(
-					            array('type' => 'goal', 'text' => $goal ) 
+					            array('type' => 'point', 'text' => $goal ) 
 					            );
 				            $client->send($msg);
 				        }
