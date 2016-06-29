@@ -146,11 +146,12 @@ class Chat implements MessageComponentInterface {
 							$winner = 0;
 							$losser = 1; 
 						} else {
-							$winner = 0; 							
-							$losser = 1; 
+							$winner = 1; 							
+							$losser = 0; 
 						}
 						
-						$GLOBALS['score'][0] = $GLOBALS['score'][1] = 0; 
+						$GLOBALS['score'][0] = 0; 
+						$GLOBALS['score'][1] = 0;
 
 					    foreach ($this->clients as $client) {
 
