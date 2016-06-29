@@ -47,78 +47,93 @@ class Chat implements MessageComponentInterface {
 				$c = 0;
 
 			    foreach ($this->clients as $client) {
-			        if ($message['text'] == $client->resourceId) {
+			        if ($message['text'] == $client->resourceId && $client->resourceId !== $message['text'] ) {
 						$c++;
 			        }
 				}
 					
 				if ($c > 0){
 
-				if($GLOBALS['playing'] == 0){					
-					$GLOBALS['playing'] = 1;
-					array_push($GLOBALS['line'], $from->resourceId, $message['text']);
-//					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
-				    foreach ($this->clients as $client) {
-				        if ($from == $client) {
-				            // The sender is not the receiver, send to each client connected
-					        $msg = json_encode(
-					            array('type' => 'play', 'text' => 'play')
-					        );
-				            $client->send($msg);
-				        } else if ($message['text'] == $client->resourceId) {
-				            // The sender is not the receiver, send to each client connected
-					        $msg = json_encode(
-					            array('type' => 'play', 'text' => 'play')
-					        );
-				            $client->send($msg);
-				        } else {
-				            // The sender is not the receiver, send to each client connected
-				            $vs = $from->resourceId . ' vs ' . $message['text'];
-					        $msg = json_encode(
-					            array('type' => 'onMatch', 'text' => $vs ) 
-					            );
-				            $client->send($msg);
-				        }
-		
-				    }
-				} else if ($GLOBALS['playing'] == 1){
-				    foreach ($this->clients as $client) {
-				        if ($from == $client) {
-				            // The sender is not the receiver, send to each client connected
-					        $msg = json_encode(
-					            array('type' => 'play', 'text' => 'wait')					        );
-				            $client->send($msg);
-				        } else if ($message['text'] == $client->resourceId) {
-				            // The sender is not the receiver, send to each client connected
-					        $msg = json_encode(
-					            array('type' => 'play', 'text' => 'wait')
-					        );
-				            $client->send($msg);
-				        } else {
-				            // The sender is not the receiver, send to each client connected
-				            $vs = $from->resourceId . ' vs ' . $message['text'];
-					        $msg = json_encode(
-					            array('type' => 'onWait', 'text' => $vs ) 
-					            );
-				            $client->send($msg);
-				        }
-		
-				    }					
-				}
+					if($GLOBALS['playing'] == 0){					
+						$GLOBALS['playing'] = 1;
+						array_push($GLOBALS['line'], $from->resourceId, $message['text']);
+	//					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
+					    foreach ($this->clients as $client) {
+					        if ($from == $client) {
+					            // The sender is not the receiver, send to each client connected
+						        $msg = json_encode(
+						            array('type' => 'play', 'text' => 'play')
+						        );
+					            $client->send($msg);
+					        } else if ($message['text'] == $client->resourceId) {
+					            // The sender is not the receiver, send to each client connected
+						        $msg = json_encode(
+						            array('type' => 'play', 'text' => 'play')
+						        );
+					            $client->send($msg);
+					        } else {
+					            // The sender is not the receiver, send to each client connected
+					            $vs = $from->resourceId . ' vs ' . $message['text'];
+						        $msg = json_encode(
+						            array('type' => 'onMatch', 'text' => $vs ) 
+						            );
+					            $client->send($msg);
+					        }
+			
+					    }
+					} else if ($GLOBALS['playing'] == 1){
+					    foreach ($this->clients as $client) {
+					        if ($from == $client) {
+					            // The sender is not the receiver, send to each client connected
+						        $msg = json_encode(
+						            array('type' => 'play', 'text' => 'wait')					        );
+					            $client->send($msg);
+					        } else if ($message['text'] == $client->resourceId) {
+					            // The sender is not the receiver, send to each client connected
+						        $msg = json_encode(
+						            array('type' => 'play', 'text' => 'wait')
+						        );
+					            $client->send($msg);
+					        } else {
+					            // The sender is not the receiver, send to each client connected
+					            $vs = $from->resourceId . ' vs ' . $message['text'];
+						        $msg = json_encode(
+						            array('type' => 'onWait', 'text' => $vs ) 
+						            );
+					            $client->send($msg);
+					        }
+			
+					    }				
+					}
 	
 					
 				}
 				
 			} else if($message['type'] == 'goal'){
-		        foreach ($this->clients as $client) {
-		            if ($from == $client) {
-		                // The sender is not the receiver, send to each client connected
-			            $msg = json_encode(
-			                array('type' => 'chatId' , 'text' => $from->resourceId)
-			            );
-		                $client->send($msg);
-		            }
-		        }		
+				    foreach ($this->clients as $client) {
+
+				        if ($from == $client) {
+				            // The sender is not the receiver, send to each client connected
+					        $msg = json_encode(
+					            array('type' => 'goal', 'text' => $message["text"])
+					        );
+				            $client->send($msg);
+				        } else if ($message['text'] == $client->resourceId) {
+				            // The sender is not the receiver, send to each client connected
+					        $msg = json_encode(
+					            array('type' => 'goal', 'text' => $message["data"])
+					        );
+				            $client->send($msg);
+				        } else {
+				            // The sender is not the receiver, send to each client connected
+				            $goal = 'Goal from ' . $message['text'];
+					        $msg = json_encode(
+					            array('type' => 'goal', 'text' => $goal ) 
+					            );
+				            $client->send($msg);
+				        }
+		
+				    }			
 			}  else {
 		        foreach ($this->clients as $client) {
 		            if ($from !== $client) {
