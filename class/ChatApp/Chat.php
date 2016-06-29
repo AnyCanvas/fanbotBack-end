@@ -181,7 +181,7 @@ class Chat implements MessageComponentInterface {
 						array_shift($GLOBALS['line']);
 
 					    foreach ($this->clients as $client) {
-					        if ($GLOBALS['line'] == $client->resourceId) {
+					        if ($GLOBALS['line'][1] == $client->resourceId) {
 					            // The sender is not the receiver, send to each client connected
 						        $msg = json_encode(
 						            array('type' => 'play', 'text' => 'play')
@@ -195,7 +195,7 @@ class Chat implements MessageComponentInterface {
 					            $client->send($msg);
 					        } else {
 					            // The sender is not the receiver, send to each client connected
-					            $vs = $from->resourceId . ' vs ' . $message['text'];
+					            $vs = $GLOBALS['line'][0] . ' vs ' . $GLOBALS['line'][1];
 						        $msg = json_encode(
 						            array('type' => 'onMatch', 'text' => $vs ) 
 						            );
