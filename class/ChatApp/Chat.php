@@ -193,7 +193,7 @@ class Chat implements MessageComponentInterface {
 						        } else if ($GLOBALS['line'][1] == $client->resourceId) {
 						            // The sender is not the receiver, send to each client connected
 							        $msg = json_encode(
-							            array('type' => 'play', 'red' => 'red')
+							            array('type' => 'play', 'type' => 'red')
 							        );
 						            $client->send($msg);
 						        } else {
