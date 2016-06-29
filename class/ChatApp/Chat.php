@@ -56,6 +56,7 @@ class Chat implements MessageComponentInterface {
 
 				if($GLOBALS['playing'] == 0){					
 					$GLOBALS['playing'] = 1;
+					array_push($GLOBALS['line'], $from->resourceId, $message['text']);
 //					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
 				    foreach ($this->clients as $client) {
 				        if ($from == $client) {
