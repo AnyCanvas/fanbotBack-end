@@ -4,6 +4,7 @@
             "ChatApp": "class"
         }
     },    "require": {
-        "cboden/ratchet": "0.3.*"
+        "cboden/ratchet": "0.3.*",
+		"textalk/websocket": "1.0.*"
     }
 }
