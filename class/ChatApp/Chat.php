@@ -20,7 +20,7 @@ class Chat implements MessageComponentInterface {
 		}
 
 	 	if ( !isset($GLOBALS['line']) ){					
-			$GLOBALS['line'] = array("1", "2");		
+			$GLOBALS['line'] = array();		
 		}
     }
 
@@ -92,7 +92,7 @@ class Chat implements MessageComponentInterface {
 				            $client->send($msg);
 				        }
 				        
-				        if ($from !== $client && $message['text'] == $client->resourceId) {
+				        if ($from !== $client && $message['text'] !== $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
 					            array('type' => 'onWait', 'text' => ( $from->resourceId + ' vs ' + $message['text'] ) ) );
