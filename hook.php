@@ -7,9 +7,9 @@ $data = json_decode($body,true);
 //if ($charge->type == 'charge.paid'){
 //	if( !(isset($data['data']) ) ){
 
-		$host = 'localhost';  //where is the websocket server
+		$host = '127.0.0.1';  //where is the websocket server
 		$port = 8080;
-		$local = "http://localhost/";  //url where this script run
+		$local = "http://127.0.0.1/";  //url where this script run
 		$msg = json_encode(
 			   array('type' => 'score' , 'text' => $data['data'])
 			);
