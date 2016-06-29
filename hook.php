@@ -1,7 +1,7 @@
 <?php
-$host = 'localhost';  //where is the websocket server
+$host = 'ws://104.236.71.12';  //where is the websocket server
 $port = 8080;
-$local = "http://localhost/";  //url where this script run
+$local = "http://104.236.71.12/";  //url where this script run
 $data = 'hello world!';  //data to be send
 
 $head = "GET / HTTP/1.1"."\r\n".
