@@ -176,6 +176,8 @@ class Chat implements MessageComponentInterface {
 					        }
 					    }	
 						
+						array_shift($GLOBALS['line']);
+						array_shift($GLOBALS['line']);
 					}		
 
 
