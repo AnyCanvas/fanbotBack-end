@@ -50,7 +50,7 @@ class Chat implements MessageComponentInterface {
 		                $client->send($msg);
 		            }
 		        }		
-			} else if( $message['type'] == 'friendChatId' && ($from->resourceId !== (int) $message['text'] ) ){
+			} else if( $message['type'] == 'friendChatId' && ($from->resourceId !== (int) $message['text'] ) && !( in_array($from->resourceId, $GLOBALS['line']) ) && !( in_array($message['text'], $GLOBALS['line']) )){
 
 				$c = 0;
 
