@@ -23,11 +23,11 @@ class Chat implements MessageComponentInterface {
 			$GLOBALS['line'] = array();		
 		}
 
-	 	if ( !isset($GLOBALS['score1']) ){					
+	 	if ( !isset($GLOBALS['score'][0]) ){					
 			$GLOBALS['score'][0] = 0;		
 		}
 
-	 	if ( !isset($GLOBALS['score2']) ){					
+	 	if ( !isset($GLOBALS['score'][1]) ){					
 			$GLOBALS['score'][1] = 0;		
 		}
     }
