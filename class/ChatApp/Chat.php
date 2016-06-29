@@ -123,7 +123,7 @@ class Chat implements MessageComponentInterface {
 					$scorer = (int)$message["text"]-1;
 				    foreach ($this->clients as $client) {
 
-				        if ($GLOBALS['line'][$scorer] == $client->resourceId) {
+				        if ($GLOBALS['line'][0] == $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
 					            array('type' => 'goal', 'text' => $message["text"])
