@@ -19,8 +19,8 @@ class Chat implements MessageComponentInterface {
 			$GLOBALS['playing'] = 0;		
 		}
 
-	 	if ( !isset($GLOBALS['paring']) ){					
-			$GLOBALS['paring'] = [];		
+	 	if ( !isset($GLOBALS['line']) ){					
+			$GLOBALS['line'] = array("1", "2");		
 		}
     }
 
@@ -56,12 +56,12 @@ class Chat implements MessageComponentInterface {
 
 				if($GLOBALS['playing'] == 0){					
 					$GLOBALS['playing'] = 1;
-					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
+//					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
 				    foreach ($this->clients as $client) {
 				        if ($from == $client) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
-					            array('type' => 'play', 'status' => 'play')
+					            array('type' => 'play', 'text' => 'play')
 					        );
 				            $client->send($msg);
 				        }
@@ -69,26 +69,25 @@ class Chat implements MessageComponentInterface {
 				        if ($message['text'] == $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
-					            array('type' => 'play', 'status' => 'play')
+					            array('type' => 'play', 'text' => 'play')
 					        );
 				            $client->send($msg);
 				        }
 		
 				    }
-				} else {
-					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
+				} else if ($GLOBALS['playing'] == 1){
 				    foreach ($this->clients as $client) {
 				        if ($from == $client) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
-					            array('type' => 'play', 'status' => 'wait')					        );
+					            array('type' => 'play', 'text' => 'wait')					        );
 				            $client->send($msg);
 				        }
 		
 				        if ($message['text'] == $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
-					            array('type' => 'play', 'status' => 'wait')
+					            array('type' => 'play', 'text' => 'wait')
 					        );
 				            $client->send($msg);
 				        }
@@ -99,7 +98,7 @@ class Chat implements MessageComponentInterface {
 					
 				}
 				
-			} else if($message['type'] == 'strChat'){
+			} else if($message['type'] == 'goal'){
 		        foreach ($this->clients as $client) {
 		            if ($from == $client) {
 		                // The sender is not the receiver, send to each client connected
