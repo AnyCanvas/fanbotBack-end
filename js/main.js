@@ -8,7 +8,7 @@
     function updateMessages(msg){
         messages.push(msg);
         var messages_html = messages_template({'messages': messages});
-        $('#messages').html(messages_html);
+        $('#messages').html(msg);
         $("#messages").animate({ scrollTop: $('#messages')[0].scrollHeight}, 1000);
     }
 
