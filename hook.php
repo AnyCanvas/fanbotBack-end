@@ -6,7 +6,6 @@ $data = json_decode($body,true);
 use WebSocket\Client;
 
 $client = new Client("ws://104.236.71.12:8080");
-$client->send($data);
+$client->send($body);
 
-echo $client->receive($data); // Will output 'Hello WebSocket.org!'
 ?>
