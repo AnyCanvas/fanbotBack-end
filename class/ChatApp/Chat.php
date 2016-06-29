@@ -18,6 +18,10 @@ class Chat implements MessageComponentInterface {
 	 	if ( !isset($GLOBALS['playing']) ){					
 			$GLOBALS['playing'] = 0;		
 		}
+
+	 	if ( !isset($GLOBALS['paring']) ){					
+			$GLOBALS['paring'] = [];		
+		}
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
@@ -40,29 +44,59 @@ class Chat implements MessageComponentInterface {
 		        }		
 			} else if($message['type'] == 'friendChatId'){
 
-				if($GLOBALS['playing'] == 0){
+				$c = 0;
+
+			    foreach ($this->clients as $client) {
+			        if ($message['text'] == $client->resourceId) {
+						$c++;
+			        }
+				}
 					
+				if ($c > 0){
+
+				if($GLOBALS['playing'] == 0){					
 					$GLOBALS['playing'] = 1;
-			        foreach ($this->clients as $client) {
-			            if ($from == $client) {
-			                // The sender is not the receiver, send to each client connected
-				            $msg = json_encode(
-				                array('type' => 'players', 'p1Id' => $from->resourceId, 'p2Id' => $message['text'])
-				            );
-			                $client->send($msg);
-			            }
-	
-			            if ($message['text'] == $client->resourceId) {
-			                // The sender is not the receiver, send to each client connected
-				            $msg = json_encode(
-				                array('type' => 'players', 'p1Id' => $from->resourceId, 'p2Id' => $message['text'])
-				            );
-			                $client->send($msg);
-			            }
-	
-			        }		
-	
 					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
+				    foreach ($this->clients as $client) {
+				        if ($from == $client) {
+				            // The sender is not the receiver, send to each client connected
+					        $msg = json_encode(
+					            array('type' => 'play', 'status' => 'play')
+					        );
+				            $client->send($msg);
+				        }
+		
+				        if ($message['text'] == $client->resourceId) {
+				            // The sender is not the receiver, send to each client connected
+					        $msg = json_encode(
+					            array('type' => 'play', 'status' => 'play')
+					        );
+				            $client->send($msg);
+				        }
+		
+				    }
+				} else {
+					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
+				    foreach ($this->clients as $client) {
+				        if ($from == $client) {
+				            // The sender is not the receiver, send to each client connected
+					        $msg = json_encode(
+					            array('type' => 'play', 'status' => 'wait')					        );
+				            $client->send($msg);
+				        }
+		
+				        if ($message['text'] == $client->resourceId) {
+				            // The sender is not the receiver, send to each client connected
+					        $msg = json_encode(
+					            array('type' => 'play', 'status' => 'wait')
+					        );
+				            $client->send($msg);
+				        }
+		
+				    }					
+				}
+	
+					
 				}
 				
 			}else {
