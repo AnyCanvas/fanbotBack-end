@@ -24,11 +24,11 @@ class Chat implements MessageComponentInterface {
 		}
 
 	 	if ( !isset($GLOBALS['score1']) ){					
-			$GLOBALS['line'] = 0;		
+			$GLOBALS['score1'] = 0;		
 		}
 
 	 	if ( !isset($GLOBALS['score2']) ){					
-			$GLOBALS['line'] = 0;		
+			$GLOBALS['score2'] = 0;		
 		}
     }
 
@@ -123,7 +123,7 @@ class Chat implements MessageComponentInterface {
 					$scorer = (int)$message["text"]-1;
 				    foreach ($this->clients as $client) {
 
-				        if ($GLOBALS['line'][0] == $client->resourceId) {
+				        if ($GLOBALS['line'][(int)$scorer] == $client->resourceId) {
 				            // The sender is not the receiver, send to each client connected
 					        $msg = json_encode(
 					            array('type' => 'goal', 'text' => $message["text"])
