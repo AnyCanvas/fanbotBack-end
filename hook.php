@@ -1,31 +1,21 @@
 <?php
-// Analizar la información del evento en forma de json
-$body = @file_get_contents('php://input');
-$data = json_decode($body,true);
+$host = 'localhost';  //where is the websocket server
+$port = 9000;
+$local = "http://localhost/";  //url where this script run
+$data = 'hello world!';  //data to be send
 
-
-//if ($charge->type == 'charge.paid'){
-//	if( !(isset($data['data']) ) ){
-
-		$host = '127.0.0.1';  //where is the websocket server
-		$port = 8080;
-		$local = "http://127.0.0.1/";  //url where this script run
-		$msg = json_encode($data);
-		
-		$head = "GET / HTTP/1.1"."\r\n".
-		            "Upgrade: WebSocket"."\r\n".
-		            "Connection: Upgrade"."\r\n".
-		            "Origin: $local"."\r\n".
-		            "Host: $host"."\r\n".
-		            "Content-Length: ".strlen($data)."\r\n"."\r\n";
-		//WebSocket handshake
-		$sock = fsockopen($host, $port, $errno, $errstr, 2);
-		fwrite($sock, $head ) or die('error:'.$errno.':'.$errstr);
-		$headers = fread($sock, 2000);
-//		fwrite($sock, "\x00$msg\xff" ) or die('error:'.$errno.':'.$errstr);
-//		$wsdata = fread($sock, 2000);  //receives the data included in the websocket package "\x00DATA\xff"
-		fclose($sock);
-//	}
-//}
+$head = "GET / HTTP/1.1"."\r\n".
+            "Upgrade: WebSocket"."\r\n".
+            "Connection: Upgrade"."\r\n".
+            "Origin: $local"."\r\n".
+            "Host: $host"."\r\n".
+            "Content-Length: ".strlen($data)."\r\n"."\r\n";
+//WebSocket handshake
+$sock = fsockopen($host, $port, $errno, $errstr, 2);
+fwrite($sock, $head ) or die('error:'.$errno.':'.$errstr);
+$headers = fread($sock, 2000);
+fwrite($sock, "\x00$data\xff" ) or die('error:'.$errno.':'.$errstr);
+$wsdata = fread($sock, 2000);  //receives the data included in the websocket package "\x00DATA\xff"
+fclose($sock);
 
 ?>
