@@ -64,6 +64,8 @@ class Chat implements MessageComponentInterface {
 
 					if($GLOBALS['playing'] == 0){					
 						$GLOBALS['playing'] = 1;
+						$GLOBALS['score'][1] = 0;		
+						$GLOBALS['score'][0] = 0;		
 						array_push($GLOBALS['line'], $from->resourceId, $message['text']);
 	//					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
 					    foreach ($this->clients as $client) {
@@ -197,6 +199,8 @@ class Chat implements MessageComponentInterface {
 						            $client->send($msg);
 						        } else {
 						            // The sender is not the receiver, send to each client connected
+									$GLOBALS['score'][0] = 0; 
+									$GLOBALS['score'][1] = 0;
 						            $vs = $GLOBALS['line'][0] . ' vs ' . $GLOBALS['line'][1];
 							        $msg = json_encode(
 							            array('type' => 'onMatch', 'text' => $vs ) 
