@@ -24,13 +24,13 @@
 
 
     $('#join-chat').click(function(){
-        user = $('#user').val();
+        user = 'root';
         $('#user-container').addClass('hidden');
         $('#main-container').removeClass('hidden');
 
         var msg = {
             'type': user,
-            'text': user + ' entered the room',
+            'text': user + ' enter',
             'time': moment().format('hh:mm a')
         };
 

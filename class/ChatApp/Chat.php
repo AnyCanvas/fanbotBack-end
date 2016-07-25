@@ -19,6 +19,9 @@ class Chat implements MessageComponentInterface {
 			$GLOBALS['playing'] = 0;		
 		}
 
+	 	if ( !isset($GLOBALS['reset']) ){					
+			$GLOBALS['reset'] = 0;		
+		}
 	 	if ( !isset($GLOBALS['line']) ){					
 			$GLOBALS['line'] = array();		
 		}
@@ -50,7 +53,70 @@ class Chat implements MessageComponentInterface {
 		                $client->send($msg);
 		            }
 		        }		
-			} else if( $message['type'] == 'friendChatId' && ($from->resourceId !== (int) $message['text'] ) && !( in_array($from->resourceId, $GLOBALS['line']) ) && !( in_array($message['text'], $GLOBALS['line']) )){
+			} else if ($GLOBALS['reset'] == 1 && $message['type'] == 'goal'){
+
+				$GLOBALS['score'][0] = 0; 
+				$GLOBALS['score'][1] = 0;
+
+			    foreach ($this->clients as $client) {
+
+			        if ($GLOBALS['line'][0] == $client->resourceId) {
+			            // The sender is not the receiver, send to each client connected
+				        $msg = json_encode(
+				            array('type' => 'final', 'text' => 'lose')
+				        );
+			            $client->send($msg);
+			        } else if ( $GLOBALS['line'][1] == $client->resourceId ) {
+			            // The sender is not the receiver, send to each client connected
+				        $msg = json_encode(
+				            array('type' => 'final', 'text' => 'lose')
+				        );
+			            $client->send($msg);
+				        
+			        }else {
+			            $goal = 'Game terminated by manager';
+				        $msg = json_encode(
+				            array('type' => 'final', 'text' => $goal ) 
+				            );
+			            $client->send($msg);
+			        }
+			    }	
+				array_shift($GLOBALS['line']);
+				array_shift($GLOBALS['line']);
+
+			    
+			    if(isset( $GLOBALS['line'][0] ) && isset( $GLOBALS['line'][1] ) ){
+				    foreach ($this->clients as $client) {
+				        if ($GLOBALS['line'][0] == $client->resourceId) {
+				            // The sender is not the receiver, send to each client connected
+					        $msg = json_encode(
+				            array('type' => 'play', 'text' => 'white')					        );
+				            $client->send($msg);
+				        } else if ($GLOBALS['line'][1] == $client->resourceId) {
+				            // The sender is not the receiver, send to each client connected
+					        $msg = json_encode(
+				            array('type' => 'play', 'text' => 'red')					        );
+				            $client->send($msg);
+				        } else {
+				            // The sender is not the receiver, send to each client connected
+							$GLOBALS['score'][0] = 0; 
+							$GLOBALS['score'][1] = 0;
+				            $vs = $GLOBALS['line'][0] . ' vs ' . $GLOBALS['line'][1];
+					        $msg = json_encode(
+					            array('type' => 'onMatch', 'text' => $vs ) 
+					            );
+				            $client->send($msg);
+				        }
+		
+				    }
+					file_get_contents("http://soyfanbot.com/remote.php?name=futy");
+
+				} else {
+					$GLOBALS['playing'] = 0;							    
+				}
+				$GLOBALS['reset'] = 0;				
+
+			}else if( $message['type'] == 'friendChatId' && ($from->resourceId !== (int) $message['text'] ) && !( in_array($from->resourceId, $GLOBALS['line']) ) && !( in_array($message['text'], $GLOBALS['line']) )){
 
 				$c = 0;
 
@@ -218,7 +284,12 @@ class Chat implements MessageComponentInterface {
 
 
 				    }			
-			}  else {
+			} else if ($message['type'] == 'reset'){
+
+				$GLOBALS['reset'] = 1;			
+
+				
+			} else {
 		        foreach ($this->clients as $client) {
 		            if ($from !== $client) {
 		                // The sender is not the receiver, send to each client connected
