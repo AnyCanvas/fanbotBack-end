@@ -132,7 +132,7 @@ class Chat implements MessageComponentInterface {
 						$GLOBALS['score'][1] = 0;		
 						$GLOBALS['score'][0] = 0;		
 						array_push($GLOBALS['line'], $from->resourceId, $message['text']);
-	//					file_get_contents('http://soyfanbot.com/remote.php?name=futy');
+						file_get_contents('http://soyfanbot.com/remote.php?name=futy');
 					    foreach ($this->clients as $client) {
 					        if ($from == $client) {
 					            // The sender is not the receiver, send to each client connected
@@ -156,7 +156,6 @@ class Chat implements MessageComponentInterface {
 					        }
 			
 					    }
-					file_get_contents("http://soyfanbot.com/remote.php?name=futy");
 					} else if ($GLOBALS['playing'] == 1){
 						array_push($GLOBALS['line'], $from->resourceId, $message['text']);
 					    foreach ($this->clients as $client) {
@@ -186,13 +185,14 @@ class Chat implements MessageComponentInterface {
 					
 				}
 				
-			} else if($message['type'] == 'goal'){
+			} else if($message['type'] == 'goal' && $GLOBALS['playing'] == 1){
 
 
 					$scorer = (int)$message["text"]-1;
 					$GLOBALS['score'][$scorer]++;
+
 					if( $GLOBALS['score'][0]  < 5 || $GLOBALS['score'][1]  < 5 ) {
-						file_get_contents("http://soyfanbot.com/remote.php?name=futy");
+						file_get_contents('http://soyfanbot.com/remote.php?name=futy');
 					}
 				    foreach ($this->clients as $client) {
 
