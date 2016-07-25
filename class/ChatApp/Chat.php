@@ -208,10 +208,6 @@ class Chat implements MessageComponentInterface {
 				            $client->send($msg);
 				        }
 
-					if(  $GLOBALS['score'][0]  < 5 && $GLOBALS['score'][1]  < 5 ){
-							file_get_contents("http://soyfanbot.com/remote.php?name=futy");
-		            }
-
 					if(  $GLOBALS['score'][0]  >= 5 || $GLOBALS['score'][1]  >= 5 ){
 
 						if ($GLOBALS['score'][0] > $GLOBALS['score'][1]){
@@ -282,7 +278,9 @@ class Chat implements MessageComponentInterface {
 						} else {
 							$GLOBALS['playing'] = 0;							    
 						}
-					}		
+					}	else {
+						file_get_contents("http://soyfanbot.com/remote.php?name=futy");
+					}	
 
 
 				    }			
