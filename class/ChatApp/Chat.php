@@ -209,7 +209,7 @@ class Chat implements MessageComponentInterface {
 				            $client->send($msg);
 				        }
 		
-					if( ($GLOBALS['score'][0] + $GLOBALS['score'][1]) >= 5){
+					if(  $GLOBALS['score'][0]  >= 5 || $GLOBALS['score'][1]  >= 5 ){
 
 						if ($GLOBALS['score'][0] > $GLOBALS['score'][1]){
 							$winner = 0;
