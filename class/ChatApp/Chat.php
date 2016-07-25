@@ -109,7 +109,6 @@ class Chat implements MessageComponentInterface {
 				        }
 		
 				    }
-					file_get_contents("http://soyfanbot.com/remote.php?name=futy");
 
 				} else {
 					$GLOBALS['playing'] = 0;							    
@@ -157,7 +156,7 @@ class Chat implements MessageComponentInterface {
 					        }
 			
 					    }
-					  file_get_contents("http://soyfanbot.com/remote.php?name=futy");
+					file_get_contents("http://soyfanbot.com/remote.php?name=futy");
 					} else if ($GLOBALS['playing'] == 1){
 						array_push($GLOBALS['line'], $from->resourceId, $message['text']);
 					    foreach ($this->clients as $client) {
@@ -209,8 +208,7 @@ class Chat implements MessageComponentInterface {
 				            $client->send($msg);
 				        }
 
-					if(  $GLOBALS['score'][0]  < 5 || $GLOBALS['score'][1]  < 5 ){
-
+					if(  $GLOBALS['score'][0]  < 5 && $GLOBALS['score'][1]  < 5 ){
 							file_get_contents("http://soyfanbot.com/remote.php?name=futy");
 		            }
 
