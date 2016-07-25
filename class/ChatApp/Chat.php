@@ -284,9 +284,10 @@ class Chat implements MessageComponentInterface {
 
 
 				    }			
-			} else if ($message['type'] == 'reset'){
+			} else if ($message['text'] == 'reset'){
 
 				$GLOBALS['reset'] = 1;			
+				file_get_contents('http://soyfanbot.com/remote.php?name=futy');
 
 				
 			} else {
